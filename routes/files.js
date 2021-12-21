@@ -25,8 +25,12 @@ let upload = multer({
 
 // get upload-file page
 router.get('/upload', (req, res, next) => {
+  const baseURL = process.env.APP_BASE_URL
   return res.render('upload', {
     pageStyle: 'upload-style.css',
+    baseURL: baseURL,
+    uploadURL: `${baseURL}/files/upload`,
+    emailURL: `${baseURL}/files/send`,
   })
 })
 

@@ -1,4 +1,4 @@
-module.exports = ({ emailFrom, downloadLink, size, expires }) => {
+module.exports = ({ emailFrom, downloadLink, size, expires, baseUrl }) => {
   return `
     <!DOCTYPE html>
     <html>
@@ -388,7 +388,7 @@ module.exports = ({ emailFrom, downloadLink, size, expires }) => {
                         >
                         Want to share a file? try
                         <a
-                            href="http://localhost:3000"
+                            href="${baseUrl}"
                             style="
                             text-decoration: underline;
                             color: #999999;

@@ -1,4 +1,3 @@
-console.log('index.js called')
 const dropZone = document.querySelector('.drop-zone')
 const fileInput = document.querySelector('#fileInput')
 const browseBtn = document.querySelector('#browseBtn')
@@ -16,9 +15,9 @@ const emailForm = document.querySelector('#emailForm')
 
 const toast = document.querySelector('.toast')
 
-const baseURL = 'http://localhost:3000'
-const uploadURL = `${baseURL}/files/upload`
-const emailURL = `${baseURL}/files/send`
+const baseURL = document.currentScript.getAttribute('baseUrl')
+const uploadURL = document.currentScript.getAttribute('uploadURL')
+const emailURL = document.currentScript.getAttribute('emailURL')
 
 const maxAllowedSize = 100 * 1024 * 1024 //100mb
 
