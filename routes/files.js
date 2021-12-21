@@ -88,6 +88,7 @@ router.post('/send', async (req, res, next) => {
           downloadLink: `${process.env.APP_BASE_URL}/files/${file.uuid}`,
           size: parseInt(file.size / 1000) + 'KB',
           expires: '24 hours',
+          baseURL: process.env.APP_BASE_URL,
         }),
       })
       return res.json({
