@@ -27,7 +27,7 @@ app.use('/test', (req, res, next) => {
   res.render('email')
 })
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`)
 })
