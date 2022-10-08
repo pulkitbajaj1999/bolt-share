@@ -1,4 +1,4 @@
-module.exports = ({ emailFrom, downloadLink, size, expires, baseURL }) => {
+module.exports = ({ sender, downloadLink, size, expires, baseURL }) => {
   return `
     <!DOCTYPE html>
     <html>
@@ -232,7 +232,7 @@ module.exports = ({ emailFrom, downloadLink, size, expires, baseURL }) => {
                                 margin-bottom: 15px;
                                 "
                             >
-                                <b>${emailFrom}</b> has shared a file with you.
+                                <b>${sender}</b> has shared a file with you.
                             </p>
                             <p
                                 style="
@@ -331,17 +331,6 @@ module.exports = ({ emailFrom, downloadLink, size, expires, baseURL }) => {
                                 "
                             >
                                 Thank you for using boltShare service.
-                            </p>
-                            <p
-                                style="
-                                font-family: sans-serif;
-                                font-size: 14px;
-                                font-weight: normal;
-                                margin: 0;
-                                margin-bottom: 15px;
-                                "
-                            >
-                                Good luck! Hope it works.
                             </p>
                             </td>
                         </tr>

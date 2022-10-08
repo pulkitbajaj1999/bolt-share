@@ -63,8 +63,8 @@ router.post('/upload', (req, res, next) => {
 // send mail
 router.post('/send', async (req, res, next) => {
   console.log('body:', req.body)
-  const { uuid, emailFrom, emailTo } = req.body
-  if (!uuid || !emailFrom || !emailTo) {
+  const { uuid, sender, emailTo } = req.body
+  if (!uuid || !sender || !emailTo) {
     return res.status(402).send('All fields are required')
   }
   const file = await File.findOne({ uuid: uuid })
@@ -74,31 +74,31 @@ router.post('/send', async (req, res, next) => {
   if (file.sender) {
     return res.status(402).send('Email already sent')
   } else {
-    file.sender = emailFrom
+    file.sender = sender
     file.receiver = emailTo
     const response = await file.save()
-    try {
-      await sendMail({
-        from: `boltShare <${emailFrom}>`,
-        to: emailTo,
-        subject: 'Bolt filesharing',
-        text: `${emailFrom} has shared a file with you`,
-        html: require('../services/emailTemplate')({
-          emailFrom: emailFrom,
-          downloadLink: `${process.env.APP_BASE_URL}/files/${file.uuid}`,
-          size: parseInt(file.size / 1000) + 'KB',
-          expires: '24 hours',
-          baseURL: process.env.APP_BASE_URL,
-        }),
+    await sendMail({
+      from: `boltShare <${sender}>`,
+      to: emailTo,
+      subject: 'Bolt filesharing',
+      text: `${sender} has shared a file with you`,
+      html: require('../services/emailTemplate')({
+        sender: sender,
+        downloadLink: `${process.env.APP_BASE_URL}/files/${file.uuid}`,
+        size: parseInt(file.size / 1000) + 'KB',
+        expires: '24 hours',
+        baseURL: process.env.APP_BASE_URL,
+      }),
+    })
+      .then((resultInfo) => {
+        console.log('mail sent result:', resultInfo)
+        return res.status(200).json({ success: true })
       })
-      return res.json({
-        success: true,
+      .catch((err) => {
+        return res.status(500).json({
+          err: 'Internal Server Error',
+        })
       })
-    } catch (err) {
-      return res.json({
-        err: err,
-      })
-    }
   }
 })
 

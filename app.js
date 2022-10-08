@@ -22,10 +22,8 @@ const filesRoutes = require('./routes/files')
 app.get('/', (req, res, next) => {
   return res.redirect('/files/upload')
 })
+
 app.use('/files', filesRoutes)
-app.use('/test', (req, res, next) => {
-  res.render('email')
-})
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {

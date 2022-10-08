@@ -141,7 +141,7 @@ emailForm.addEventListener('submit', (e) => {
   const formData = {
     uuid: url.split('/').splice(-1, 1)[0],
     emailTo: emailForm.elements['to-email'].value,
-    emailFrom: emailForm.elements['from-email'].value,
+    sender: emailForm.elements['sender'].value,
   }
   console.log(formData)
   fetch(emailURL, {
@@ -156,6 +156,8 @@ emailForm.addEventListener('submit', (e) => {
       if (data.success) {
         showToast('Email Sent')
         sharingContainer.style.display = 'none' // hide the box
+      } else {
+        showToast('Error while sending email!')
       }
     })
 })
